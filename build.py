@@ -96,13 +96,18 @@ def construct_index(photos, pathOutput):
     for photo in photos:
         print(str(photo))
         original = pathOutput/'index.html'
-        name = str(photo).split('-')[-1].split('.')[0]
-        date = str(photo).split('-')[0].split('/')[-1]+'-'+str(photo).split('-')[1]
+        name = ' '
+        # name = str(photo).split('-')[-1].split('.')[0]
+        # date = str(photo).split('-')[0].split('/')[-1]+'-'+str(photo).split('-')[1]
       
         add = '<article class="thumb">\n\
                 <a href="'+str(photo)+'" class="image"><img src="'+str(photo).replace(' ','%20').replace('images','images_low-res')+'" alt="" /></a>\n\
-                <h2>'+name+' ('+date+')</h2>\n\
+                <h2>'+name+'</h2>\n\
                 </article>'
+
+        # add = '<article class="thumb">\n\
+        #         <a href="'+str(photo)+'" class="image"><img src="'+str(photo).replace(' ','%20').replace('images','images_low-res')+'" alt="" /></a>\n\
+        #         </article>'
 
         insertionPoint = '<!-- #PHOTOS'+str(i)+'# -->'
         # insert_text_in_file(original, add=add, insertionPoint=insertionPoint)
