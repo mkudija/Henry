@@ -10,11 +10,43 @@
 
 <style>
 
-body {
+/*body {
 	
-	background-image: url('grunge_patterns.jpg');
+	background-image: url('background.jpg');
 	background-attachment: fixed;
 	color: #333;
+}*/
+
+@import url(font-awesome.min.css);
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic");
+
+
+body {
+	background-image: url('background.jpg'); 
+	no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+body, input, select, text-area, button {
+	font-family: "Source Sans Pro", Helvetica, sans-serif;
+}
+
+button {
+    background-color: #3377b3;
+    border: none;
+    color: white;
+    padding: 5px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+}
+
+button:hover {
+    background-color: #003165;
 }
 
 .box {
@@ -49,17 +81,17 @@ div.vertical {
 }
 
 ::-webkit-input-placeholder {
-   color: #955;
+	color: grey;
    text-align: center;
 }
 
 ::-moz-placeholder {  
-   color: #955;
+   color: grey;
    text-align: center;
 }
 
 :-ms-input-placeholder {  
-   color: #955;
+   color: grey;
    text-align: center;
 }
 
@@ -70,8 +102,9 @@ div.vertical {
 	<div id="loginbox" class="lightbox" >
 		<div class="horizontal">
 			<div class="vertical">
-				<div class="box">				
-					<input style="margin: 16px; text-align: center;" id="password" type="password" placeholder="password" /> <br />
+				<div class="box">	
+					<p><font color="white">HENRY'S PHOTOS</font></p>			
+					<input style="margin: 16px; text-align: center;" id="password" type="password" placeholder="Henry's MMDDYY" /> <br />
 					<button id="loginbutton" type="button">Enter</button>
 					<p id="wrongPassword" style="display: none">wrong password</p>
 				</div>
