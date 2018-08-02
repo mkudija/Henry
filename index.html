@@ -1,25 +1,25 @@
-
+<!-- https://github.com/matteobrusa/Password-protection-for-static-pages -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title></title>
+	<!-- Global Site Tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-72240498-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'UA-72240498-1');
+	</script>
+	<title>Photos of Henry</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
 
 <style>
 
-/*body {
-	
-	background-image: url('background.jpg');
-	background-attachment: fixed;
-	color: #333;
-}*/
-
 @import url(font-awesome.min.css);
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic");
-
 
 body {
 	background-image: url('background.jpg'); 
@@ -35,18 +35,18 @@ body, input, select, text-area, button {
 }
 
 button {
-    background-color: #3377b3;
-    border: none;
-    color: white;
-    padding: 5px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 12px;
+	background-color: #3377b3;
+	border: none;
+	color: white;
+	padding: 5px 15px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 12px;
 }
 
 button:hover {
-    background-color: #003165;
+	background-color: #003165;
 }
 
 .box {
@@ -64,7 +64,6 @@ button:hover {
 	background: rgba(10, 10, 10, 0.8);
 	text-align: center;
 	margin: auto;
-	
 }
 
 div.horizontal {
@@ -82,17 +81,17 @@ div.vertical {
 
 ::-webkit-input-placeholder {
 	color: grey;
-   text-align: center;
+	text-align: center;
 }
 
 ::-moz-placeholder {  
-   color: grey;
-   text-align: center;
+	color: grey;
+	text-align: center;
 }
 
 :-ms-input-placeholder {  
-   color: grey;
-   text-align: center;
+	color: grey;
+	text-align: center;
 }
 
 </style>
@@ -115,51 +114,51 @@ div.vertical {
 
 
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-	 
 
-	 <script type="text/javascript" src="https://cdn.rawgit.com/chrisveness/crypto/master/sha1.js"></script>
+
+	<script type="text/javascript" src="https://cdn.rawgit.com/chrisveness/crypto/master/sha1.js"></script>
 
 	<script type="text/javascript">
-	"use strict";
+		"use strict";
 
 
-	function loadPage(pwd) {
-		
-		var hash= pwd;
-		hash= Sha1.hash(pwd);
-		var url= hash + "/index.html";
+		function loadPage(pwd) {
+
+			var hash= pwd;
+			hash= Sha1.hash(pwd);
+			var url= hash + "/index.html";
 			
-		$.ajax({
-			url : url,
-			dataType : "html",
-			success : function(data) {
+			$.ajax({
+				url : url,
+				dataType : "html",
+				success : function(data) {
 
-				window.location= url;
+					window.location= url;
 
-			},
-			error : function(xhr, ajaxOptions, thrownError) {
-			
+				},
+				error : function(xhr, ajaxOptions, thrownError) {
 
-				parent.location.hash= hash;
+
+					parent.location.hash= hash;
 
 				//$("#wrongPassword").show();
 				$("#password").attr("placeholder","wrong password");
 				$("#password").val("");
 			}
 		});
-	}
-
-	 
-	$("#loginbutton").on("click", function() {
-		loadPage($("#password").val());
-	});
-	$("#password").keypress(function(e) {
-		if (e.which == 13) {
-			
-			loadPage($("#password").val());
 		}
-	});
-	$("#password").focus();
+
+
+		$("#loginbutton").on("click", function() {
+			loadPage($("#password").val());
+		});
+		$("#password").keypress(function(e) {
+			if (e.which == 13) {
+
+				loadPage($("#password").val());
+			}
+		});
+		$("#password").focus();
 		
 	</script>
 
