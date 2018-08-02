@@ -101,12 +101,12 @@ def construct_index(photos, pathOutput):
         # date = str(photo).split('-')[0].split('/')[-1]+'-'+str(photo).split('-')[1]
       
         add = '<article class="thumb">\n\
-                <a href="../'+str(photo)+'" class="image"><img src="'+str(photo).replace(' ','%20').replace('images','../images')+'" alt="" /></a>\n\
+                <a href="'+str(photo)+'" class="image"><img src="'+str(photo).replace(' ','%20').replace('images','images_low-res')+'" alt="" /></a>\n\
                 <h2>'+name+'</h2>\n\
                 </article>'
 
         # add = '<article class="thumb">\n\
-        #         <a href="'+str(photo)+'" class="image"><img src="'+str(photo).replace(' ','%20').replace('images','images')+'" alt="" /></a>\n\
+        #         <a href="'+str(photo)+'" class="image"><img src="'+str(photo).replace(' ','%20').replace('images','images_low-res')+'" alt="" /></a>\n\
         #         </article>'
 
         insertionPoint = '<!-- #PHOTOS'+str(i)+'# -->'
@@ -120,24 +120,59 @@ def resize_images(dst, height):
     """Resizes all images in dst by factor.
     """
     from PIL import Image
+    # import PIL.ExifTags
+    from PIL.ExifTags import TAGS
     from glob import glob
     import glob
+
+
+    from PIL import Image
+    from PIL.ExifTags import TAGS
+     
+    def get_exif(fn):
+        ret = {}
+        i = Image.open('images/'+fn)
+        info = i._getexif()
+        for tag, value in info.items():
+            decoded = TAGS.get(tag, tag)
+            ret[decoded] = value
+        return ret
+
 
     img_files = os.listdir(dst)  # list all files and directories
 
     i=1
     for file in img_files:
-        print('\t{} images resized.  '.format(i), end='\r')
+        print(file)
+        ret = get_exif(file)
+        import pprint
+        pprint.pprint(ret)
+
+
+
+
+
+        # import pprint
+        # pprint.pprint(TAGS)
+        # print(file)
+        # print(type(file))
         foo = Image.open(dst/Path(file))
-        size0 = foo.size[0]
-        size1 = foo.size[1]
-        resize_factor = height/size1
-        size0_new = int(size0*resize_factor)
-        size1_new = int(size1*resize_factor)
-        foo = foo.resize((size0_new,size1_new),Image.ANTIALIAS)
-        foo.save(dst/Path(file), optimize=True, quality=95)
-        i+=1
-    print('\t{} images resized.  '.format(i), end='\r')
+
+        exif = { ExifTags.TAGS[k]: v for k, v in foo._getexif().items() if k in ExifTags.TAGS}
+        print('\t{} images resized: \n{}\n'.format(i,exif))
+
+
+    #     print('\t{} images resized.  '.format(i), end='\r')
+    #     foo = Image.open(dst/Path(file))
+    #     size0 = foo.size[0]
+    #     size1 = foo.size[1]
+    #     resize_factor = height/size1
+    #     size0_new = int(size0*resize_factor)
+    #     size1_new = int(size1*resize_factor)
+    #     foo = foo.resize((size0_new,size1_new),Image.ANTIALIAS)
+    #     foo.save(dst/Path(file), optimize=True, quality=95)
+    #     i+=1
+    # print('\t{} images resized.  '.format(i), end='\r')
 
 
 # --------------------------------------------------------------------------------------------------------
@@ -145,9 +180,11 @@ if __name__ == "__main__":
 
     photos = list(Path('images/').glob('*'))
   
-    pathOutput = Path('63b46cf2cc28921ba1afcd95311ea9be2ee84cf5/')
+    pathOutput = Path('')
     print('Building index.html...')
     construct_index(photos, pathOutput)
-    # copytree(src='images', dst='images', symlinks=False, ignore=None)
-    # resize_images(dst='images', height=250)
+    # copytree(src='images', dst='images_low-res', symlinks=False, ignore=None)
+    # resize_images(dst='images_low-res', height=250)
+    resize_images(dst='images', height=250)
+    print('\n\nWORKS!!!\n\n')
     print('\nDone.\n')
