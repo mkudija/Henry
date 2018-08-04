@@ -105,13 +105,19 @@ def construct_index(photos, pathOutput):
                 <h2>'+name+'</h2>\n\
                 </article>'
 
-        # add = '<article class="thumb">\n\
-        #         <a href="'+str(photo)+'" class="image"><img src="'+str(photo).replace(' ','%20').replace('images','images')+'" alt="" /></a>\n\
-        #         </article>'
-
         insertionPoint = '<!-- #PHOTOS'+str(i)+'# -->'
         # insert_text_in_file(original, add=add, insertionPoint=insertionPoint)
         replace_text_in_file(original, add=add, replaceText=insertionPoint)
+
+
+        # get time
+        stat = os.stat(photo)
+        time = stat.st_birthtime
+        time2 = stat.st_mtime
+
+        import datetime
+        print(datetime.datetime.fromtimestamp(time))
+        print(datetime.datetime.fromtimestamp(time2))
 
         i-=1
 
